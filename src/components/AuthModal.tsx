@@ -15,16 +15,19 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onLogin(name || 'عميلنا العزيز');
+    // لو مدخلش اسم، بنقوله يا غالي
+    onLogin(name || 'يا غالي');
     onClose();
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* الخلفية الغامقة */}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={onClose}></div>
       
       <div className="bg-white rounded-2xl w-full max-w-md relative z-10 overflow-hidden shadow-2xl transform transition-all animate-fade-in-up">
         
+        {/* الجزء العلوي الملون */}
         <div className="bg-gradient-to-r from-brand-red to-red-700 p-6 text-white text-center relative">
           <button 
             onClick={onClose} 
@@ -33,13 +36,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }
             <X size={20} />
           </button>
           <h2 className="text-2xl font-bold mb-1">
-            {isLogin ? 'تسجيل الدخول' : 'حساب جديد'}
+            {isLogin ? 'منورنا تاني! 👋' : 'لسه جديد؟'}
           </h2>
-          <p className="text-red-100 text-sm">
-            {isLogin ? 'أهلاً بعودتك! اشتقنا لك.' : 'انضم إلينا واستمتع بأشهى الوجبات.'}
+          <p className="text-red-100 text-sm font-medium">
+            {isLogin ? 'سجل دخولك عشان تطلب أسرع.' : 'اعمل حساب وتعال نروق عليك.'}
           </p>
         </div>
 
+        {/* التبديل بين دخول وتسجيل */}
         <div className="flex border-b border-gray-100">
           <button 
             onClick={() => setIsLogin(true)}
@@ -52,7 +56,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }
             onClick={() => setIsLogin(false)}
             className={`flex-1 py-4 text-center font-bold text-sm transition-colors relative ${!isLogin ? 'text-brand-red' : 'text-gray-500 hover:bg-gray-50'}`}
           >
-            تسجيل جديد
+            حساب جديد
             {!isLogin && <div className="absolute bottom-0 left-0 w-full h-1 bg-brand-red rounded-t-full"></div>}
           </button>
         </div>
@@ -61,12 +65,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }
           <form onSubmit={handleSubmit} className="space-y-4">
             {!isLogin && (
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-1">الاسم الكامل</label>
+                <label className="block text-sm font-bold text-gray-700 mb-1">الاسم بالكامل</label>
                 <div className="relative">
                     <User className="absolute right-3 top-3 text-gray-400" size={20} />
                     <input 
                     type="text" 
-                    placeholder="مثال: أحمد محمد" 
+                    placeholder="اسمك ايه؟" 
                     className="w-full pr-10 pl-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-red/20 focus:border-brand-red outline-none transition-all"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -106,7 +110,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }
               type="submit" 
               className="w-full py-3.5 mt-6 bg-brand-red text-white font-bold rounded-xl shadow-lg shadow-brand-red/30 hover:bg-red-700 hover:shadow-xl transition-all flex items-center justify-center gap-2 transform active:scale-95"
             >
-              {isLogin ? 'تسجيل الدخول' : 'إنشاء حساب'}
+              {isLogin ? 'يلا بينا' : 'إنشاء الحساب'}
               <ArrowRight size={20} />
             </button>
           </form>
@@ -114,7 +118,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }
           {isLogin && (
             <div className="mt-6 text-center">
                 <a href="#" className="text-sm font-semibold text-gray-500 hover:text-brand-red transition-colors">
-                نسيت كلمة المرور؟
+                نسيت الباسورد؟
                 </a>
             </div>
           )}

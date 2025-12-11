@@ -1,118 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import { Clock, CheckCircle, ArrowRight } from 'lucide-react';
+import React from 'react';
+import { Star, Users, Heart } from 'lucide-react';
 
-interface PickupSectionProps {
-  initialOrder: string;
-}
-
-export const PickupSection: React.FC<PickupSectionProps> = ({ initialOrder }) => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [orderText, setOrderText] = useState('');
-
-  useEffect(() => {
-    if (initialOrder) {
-      setOrderText(initialOrder);
-    }
-  }, [initialOrder]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setTimeout(() => {
-      setIsSubmitted(true);
-      setOrderText('');
-    }, 1000);
-  };
-
+export const PickupSection: React.FC = () => {
   return (
     <section id="pickup" className="py-24 bg-brand-black text-white relative overflow-hidden">
       <div className="absolute right-0 top-0 text-[200px] font-black text-white opacity-[0.03] leading-none pointer-events-none select-none">
-        PICK<br/>UP
+        THE<br/>VIBE
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
+            {/* النص المعدل */}
             <div>
-                <div className="inline-block bg-brand-red px-3 py-1 rounded-lg font-bold text-sm mb-6 rotate-2">
-                    ⚡ خدمة سريعة
-                </div>
+                {/* شيلنا البادج بتاع التاريخ هنا */}
                 <h2 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
-                    ما عندك وقت؟ <br/>
-                    <span className="text-brand-yellow">احنا جاهزين.</span>
+                    مش مجرد أكل.. <br/> {/* التعديل هنا */}
+                    <span className="text-brand-yellow">ده أسلوب حياة.</span>
                 </h2>
-                <p className="text-gray-400 text-xl font-medium mb-10 max-w-md">
-                    اطلب أونلاين، حدد الوقت، ومُر علينا خذ طلبك وهو نار. بدون طوابير، بدون تأخير.
+                <p className="text-gray-400 text-xl font-medium mb-10 max-w-lg leading-relaxed">
+                    إحنا مش بنبيع مجرد وجبات، إحنا بنصنع "لحظات". المكان اللي يجمعك مع صحابك، اللمة اللي بتوحشك، والتفاصيل اللي معمولة عشان مزاجك إنت وبس.
                 </p>
 
-                <div className="space-y-6">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-brand-yellow font-bold text-xl">1</div>
-                        <div className="text-lg font-bold">اختار طلباتك من المنيو</div>
+                <div className="space-y-8">
+                    <div className="flex items-start gap-4 group">
+                        <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-brand-red transition-colors duration-300">
+                           <Users size={28} className="text-brand-yellow group-hover:text-white" />
+                        </div>
+                        <div>
+                            <h4 className="text-xl font-bold mb-1 group-hover:text-brand-yellow transition-colors">مجتمع لذيذ</h4>
+                            <p className="text-gray-500 text-sm">مكانك ومكان أصحابك، صممناه عشان يكون بيتك التاني.</p>
+                        </div>
                     </div>
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-brand-yellow font-bold text-xl">2</div>
-                        <div className="text-lg font-bold">حدد وقت الوصول</div>
+
+                    <div className="flex items-start gap-4 group">
+                        <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-brand-red transition-colors duration-300">
+                           <Star size={28} className="text-brand-yellow group-hover:text-white" />
+                        </div>
+                        <div>
+                            <h4 className="text-xl font-bold mb-1 group-hover:text-brand-yellow transition-colors">جودة متتساومش</h4>
+                            <p className="text-gray-500 text-sm">معايير عالمية في كل تفصيلة، من أول الخدمة لحد التغليف.</p>
+                        </div>
                     </div>
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-brand-yellow flex items-center justify-center text-black font-bold text-xl">3</div>
-                        <div className="text-lg font-bold text-brand-yellow">استلم في ثواني!</div>
-                    </div>
+                </div>
+
+                <div className="mt-12 pt-8 border-t border-white/10 flex items-center gap-4">
+                    <span className="font-black text-2xl tracking-tighter">لذيذ<span className="text-brand-red">.</span></span>
+                    {/* شيلنا التاريخ من هنا برضه */}
                 </div>
             </div>
 
-            <div className="bg-white text-black p-2 rounded-[2.5rem] transform rotate-1 hover:rotate-0 transition-transform duration-500 shadow-[0_0_40px_rgba(255,199,44,0.2)]">
-                <div className="border-4 border-black border-dashed rounded-[2rem] p-6 md:p-8 bg-brand-offwhite h-full">
-                    
-                    {isSubmitted ? (
-                        <div className="text-center py-20">
-                            <CheckCircle size={80} className="mx-auto text-green-500 mb-6 animate-bounce" />
-                            <h3 className="text-3xl font-black mb-2">طلبك وصل!</h3>
-                            <p className="font-bold text-gray-500 mb-8">رقم الطلب #991</p>
-                            <button onClick={() => setIsSubmitted(false)} className="text-brand-red font-black underline text-lg">طلب جديد</button>
+            <div className="relative h-[600px] w-full hidden lg:block group">
+                <div className="absolute inset-0 bg-brand-yellow/10 rounded-tl-[100px] rounded-br-[100px] blur-3xl transform rotate-6"></div>
+                <img 
+                    src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop" 
+                    alt="Laziz Atmosphere" 
+                    className="absolute inset-0 w-full h-full object-cover rounded-tl-[100px] rounded-br-[100px] transform hover:scale-[1.02] transition-transform duration-700 shadow-2xl grayscale-[0.5] group-hover:grayscale-0 border border-white/10"
+                />
+                <div className="absolute top-10 right-10 bg-black/80 backdrop-blur-md text-white p-4 rounded-xl border border-white/20 shadow-2xl transform rotate-3 hover:rotate-0 transition-all duration-300">
+                    <div className="flex items-center gap-3">
+                        <div className="bg-brand-red p-2 rounded-full animate-pulse">
+                            <Heart size={20} fill="white" />
                         </div>
-                    ) : (
-                        <form onSubmit={handleSubmit} className="space-y-5">
-                            <div className="text-center border-b-2 border-black pb-4 mb-6">
-                                <h3 className="text-2xl font-black uppercase">تذكرة الطلب</h3>
-                                <p className="font-bold text-gray-500 text-sm">ORDER TICKET</p>
-                            </div>
-
-                            <div>
-                                <label className="block font-black text-sm mb-2 uppercase">طلباتك</label>
-                                <textarea 
-                                    required 
-                                    value={orderText}
-                                    onChange={(e) => setOrderText(e.target.value)}
-                                    className="w-full bg-white border-2 border-black rounded-xl p-4 font-bold focus:ring-4 focus:ring-brand-yellow/50 focus:border-black outline-none transition-all resize-none h-32 placeholder-gray-300"
-                                    placeholder="اكتب طلبك هنا..."
-                                />
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block font-black text-sm mb-2">الاسم</label>
-                                    <input required type="text" className="w-full bg-white border-2 border-black rounded-xl p-3 font-bold focus:ring-4 focus:ring-brand-yellow/50 focus:border-black outline-none" />
-                                </div>
-                                <div>
-                                    <label className="block font-black text-sm mb-2">الجوال</label>
-                                    <input required type="tel" className="w-full bg-white border-2 border-black rounded-xl p-3 font-bold focus:ring-4 focus:ring-brand-yellow/50 focus:border-black outline-none" />
-                                </div>
-                            </div>
-
-                            <div>
-                                <label className="block font-black text-sm mb-2">وقت الوصول</label>
-                                <div className="relative">
-                                    <input required type="time" className="w-full bg-white border-2 border-black rounded-xl p-3 font-bold focus:ring-4 focus:ring-brand-yellow/50 focus:border-black outline-none" />
-                                    <Clock className="absolute left-3 top-1/2 -translate-y-1/2 text-black" size={20} />
-                                </div>
-                            </div>
-
-                            <button type="submit" className="w-full bg-brand-red text-white font-black text-xl py-4 rounded-xl shadow-hard border-2 border-black hover:bg-brand-black hover:border-brand-yellow hover:text-brand-yellow transition-all mt-4 flex items-center justify-center gap-2 group">
-                                <span>تأكيد الطلب</span>
-                                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                            </button>
-                        </form>
-                    )}
+                        <div>
+                            <p className="text-[10px] text-gray-400 uppercase tracking-widest">Customer Favorite</p>
+                            <p className="font-bold text-lg">الأكثر طلباً ⭐</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

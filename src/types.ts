@@ -1,10 +1,13 @@
+// تعريف أنواع الأكل بالعربي عشان تظهر في الزراير
 export enum Category {
+  BURGERS = 'برجر وسندوتشات',
+  CHICKEN = 'دجاج مقرمش',
+  MEALS = 'وجبات عائلية',
+  PASTA = 'باستا',
   APPETIZER = 'مقبلات',
-  MAIN = 'أطباق رئيسية',
-  DESSERT = 'حلويات',
-  DRINK = 'مشروبات'
 }
 
+// شكل البيانات بتاعة كل أكلة
 export interface MenuItem {
   id: string;
   name: string;
@@ -12,13 +15,6 @@ export interface MenuItem {
   price: number;
   category: Category;
   imageUrl: string;
-  isSpicy?: boolean;
   isVegetarian?: boolean;
-}
-
-export interface ChatMessage {
-  id: string;
-  role: 'user' | 'model';
-  text: string;
-  timestamp: number;
+  isSpicy?: boolean;
 }

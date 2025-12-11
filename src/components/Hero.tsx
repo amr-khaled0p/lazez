@@ -1,11 +1,11 @@
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectCreative, Navigation } from 'swiper/modules'; // شيلنا EffectFade وحطينا EffectCreative
+import { Autoplay, EffectCreative, Navigation } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/effect-creative'; // ملف CSS الخاص بالتأثير الجديد
+import 'swiper/css/effect-creative';
 import 'swiper/css/navigation';
 import { ShoppingBag, ArrowDown } from 'lucide-react';
 
-// داتا مؤقتة للتجربة (عشان نتأكد إن السلايدر شغال)
 const SLIDER_IMAGES = [
   "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=800&q=80",
@@ -17,7 +17,6 @@ export const Hero: React.FC = () => {
   return (
     <div id="home" className="relative min-h-screen bg-brand-offwhite overflow-hidden pt-20 flex flex-col justify-center">
       
-      {/* الخلفية والكلام المتحرك */}
       <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 -rotate-6 opacity-5 pointer-events-none select-none overflow-hidden">
         <div className="whitespace-nowrap animate-marquee flex gap-10">
           <span className="text-[150px] font-black text-black">LAZIZ TASTY FAST HOT FRESH</span>
@@ -28,7 +27,6 @@ export const Hero: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           
-          {/* النص والأزرار (يمين في الشاشات الكبيرة) */}
           <div className="text-center lg:text-right order-2 lg:order-1">
             <div className="inline-block bg-brand-yellow px-4 py-1 rounded-full border-2 border-black font-black text-xs md:text-sm mb-4 shadow-hard-sm transform -rotate-2">
               🚀 أسرع توصيل في المدينة
@@ -64,51 +62,42 @@ export const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* السلايدر (يسار في الشاشات الكبيرة) */}
-          <div className="order-1 lg:order-2 relative h-[400px] md:h-[600px] flex items-center justify-center">
-             <div className="absolute w-64 h-64 bg-brand-red rounded-full blur-3xl opacity-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+          {/* --- السلايدر المعدل --- */}
+          <div className="order-1 lg:order-2 relative h-[450px] md:h-[600px] flex items-center justify-center">
              
-             {/* --- بداية السلايدر --- */}
-<div className="relative w-full max-w-[500px] mx-auto z-10 group"> {/* ضفنا group عشان الأسهم تظهر لما نقف عليه بس */}
-  <Swiper
-    modules={[Autoplay, EffectCreative, Navigation]}
-    effect={'creative'}
-    creativeEffect={{
-      prev: {
-        shadow: true,
-        translate: [0, 0, -400], // الصورة القديمة بترجع لورا
-        opacity: 0,
-      },
-      next: {
-        translate: ['100%', 0, 0], // الصورة الجديدة بتدخل من الجنب
-      },
-    }}
-    speed={1200} // سرعة النقلة (1.2 ثانية) عشان تبقى ناعمة وهادية
-    loop={true}
-    navigation={true} // الأسهم شغالة
-    autoplay={{
-      delay: 3500, // كل 3.5 ثواني (وقت كافي للفرجة)
-      disableOnInteraction: false,
-      pauseOnMouseEnter: true, // يقف لو الزبون حط الماوس عليه
-    }}
-    className="w-full aspect-square custom-swiper"
-  >
-    {SLIDER_IMAGES.map((img, index) => (
-      <SwiperSlide key={index} className="flex items-center justify-center">
-        <img 
-          src={img} 
-          alt="Delicious Food" 
-          className="w-full h-full object-contain drop-shadow-2xl transition-transform duration-700 hover:scale-110" // زووم خفيف لما تقف عليه
-        />
-      </SwiperSlide>
-    ))}
-  </Swiper>
-</div>
-            {/* --- نهاية السلايدر --- */}
+             {/* 1. خلفية متحركة (دواير بتلف) */}
+             <div className="absolute w-[320px] h-[320px] md:w-[500px] md:h-[500px] border-2 border-dashed border-gray-300 rounded-full animate-spin-slow opacity-60"></div>
+             <div className="absolute w-[280px] h-[280px] md:w-[450px] md:h-[450px] bg-brand-yellow/10 rounded-full blur-3xl"></div>
 
-           
-           
+             {/* 2. كونتينر السلايدر */}
+             <div className="relative w-full max-w-[320px] md:max-w-[450px] mx-auto z-10 group">
+                <Swiper
+                    modules={[Autoplay, EffectCreative, Navigation]}
+                    effect={'creative'}
+                    creativeEffect={{
+                      prev: { shadow: true, translate: [0, 0, -400], opacity: 0 },
+                      next: { translate: ['100%', 0, 0] },
+                    }}
+                    speed={1200}
+                    loop={true}
+                    navigation={true}
+                    autoplay={{ delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true }}
+                    className="w-full aspect-square custom-swiper rounded-[3rem]" // ضفنا rounded هنا للسلايدر نفسه
+                >
+                    {SLIDER_IMAGES.map((img, index) => (
+                    <SwiperSlide key={index} className="flex items-center justify-center p-6"> {/* p-6 دي هي السر، هتعمل هوامش عشان الصورة متلزقش في الحواف */}
+                        <img 
+                        src={img} 
+                        alt="Delicious Food" 
+                        // خلينا الصورة تاخد شكل مدور وحطينا بوردر خفيف
+                        className="w-full h-full object-cover rounded-[2.5rem] shadow-2xl transition-transform duration-700 hover:scale-105 border-4 border-white"
+                        />
+                    </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
           </div>
+
         </div>
       </div>
       
@@ -116,38 +105,27 @@ export const Hero: React.FC = () => {
         <ArrowDown size={32} className="text-brand-black opacity-50" />
       </div>
 
-        {/* ستايل بسيط عشان الأسهم تظهر بلون أسود واضح */}
-<style>{`
-    /* ستايل الأسهم الجديد (شفاف وشيك) */
-    .swiper-button-next, .swiper-button-prev {
-        color: #000 !important;
-        background: rgba(255, 255, 255, 0.5); /* خلفية زجاجية شفافة */
-        backdrop-filter: blur(4px); /* تمويه الخلفية */
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        border: 1px solid rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-        opacity: 0; /* مخفية في العادي */
-    }
-    
-    /* لما نقف على السلايدر، الأسهم تظهر */
-    .group:hover .swiper-button-next, 
-    .group:hover .swiper-button-prev {
-        opacity: 1;
-    }
-
-    /* لما نقف على السهم نفسه */
-    .swiper-button-next:hover, .swiper-button-prev:hover {
-        background: #F4D03F; /* لون أصفر لذيذ */
-        transform: scale(1.1);
-    }
-
-    .swiper-button-next:after, .swiper-button-prev:after {
-        font-size: 20px !important;
-        font-weight: bold;
-    }
-`}</style>
+      <style>{`
+            .swiper-button-next, .swiper-button-prev {
+                color: #000 !important;
+                background: rgba(255, 255, 255, 0.8) !important;
+                backdrop-filter: blur(4px);
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                border: 2px solid black !important;
+                transition: all 0.3s ease;
+                opacity: 0;
+            }
+            .group:hover .swiper-button-next, .group:hover .swiper-button-prev { opacity: 1; }
+            .swiper-button-next:hover, .swiper-button-prev:hover { background: #F4D03F !important; transform: scale(1.1); }
+            
+            @keyframes spin-slow {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            .animate-spin-slow { animation: spin-slow 20s linear infinite; }
+        `}</style>
     </div>
   );
 };
